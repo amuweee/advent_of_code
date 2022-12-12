@@ -17,9 +17,6 @@ class CPU:
         self.outputs.append((self.cycle, self.x, self.cycle * self.x, list(self.queue)))
 
     def run_cycle(self, signal):
-
-        # import pdb; pdb.set_trace()
-
         if len(self.queue) != 0:
             while len(self.queue) != 0:
                 self.save_output()
@@ -35,6 +32,28 @@ class CPU:
                 self.save_output()
                 self.cycle += 1
 
+    def show_display(self):
+        pixels = []
+        p = ""
+        row_index = 0
+        for o in self.outputs:
+            cycle = o[0]
+            signal = o[1] + (row_index * 40)
+
+            if cycle in [signal + i for i in range(3)]:
+                p = p + "#"
+            else:
+                p = p + "."
+
+            # print(f"cycle {cycle} sig {signal} range {[signal + i for i in range(3)]} rowindex {row_index}")
+            # print(p)
+
+            if cycle > 0 and cycle % 40 == 0:
+                row_index += 1
+                pixels.append(p)
+                p = ""
+
+        return pixels
 
 cpu = CPU()
 for sig in signals:
@@ -47,3 +66,5 @@ print(f"PART 1 SUM IS {sum([a[2] for a in o])}")
 
 
 # part deux
+pprint(cpu.show_display())
+
