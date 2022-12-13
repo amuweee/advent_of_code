@@ -45,9 +45,6 @@ class CPU:
             else:
                 p = p + "."
 
-            # print(f"cycle {cycle} sig {signal} range {[signal + i for i in range(3)]} rowindex {row_index}")
-            # print(p)
-
             if cycle > 0 and cycle % 40 == 0:
                 row_index += 1
                 pixels.append(p)
