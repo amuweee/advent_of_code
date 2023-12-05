@@ -137,7 +137,7 @@ def find_two_adjascent_numbers_stars(
         # print(f"{star_adj_pos=}\n{adjascent_numbers=}\n")
         if len(adjascent_numbers) == 2:
             # print(f"before adding {gear_ratios=}\n{adjascent_numbers[0]*adjascent_numbers[1]=}\n")
-            gear_ratios += adjascent_numbers[0] * adjascent_numbers[1]
+            gear_ratios += (adjascent_numbers[0] * adjascent_numbers[1]) 
             # print(f"after adding {gear_ratios=}\n")
 
     return gear_ratios
