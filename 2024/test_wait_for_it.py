@@ -4,9 +4,9 @@ from day_06_wait_for_it import (
     answer_part1,
     answer_part2,
     calculate_score,
+    get_holding_time_thresholds,
     parse_input_w_kerning,
     parse_inputs,
-    get_holding_time_thresholds,
 )
 
 with open("data/06_sample.txt") as f:

@@ -36,6 +36,7 @@ def answer_part1(data: list[str]) -> int:
 
     return winning_scores
 
+
 def parse_input_w_kerning(lines: list[str]) -> list[int]:
     time = int("".join([i for i in lines[0].split() if i.isdigit()]))
     distance = int("".join([i for i in lines[1].split() if i.isdigit()]))
@@ -43,7 +44,7 @@ def parse_input_w_kerning(lines: list[str]) -> list[int]:
     return race
 
 
-def get_holding_time_thresholds(time:int, distance: int) -> int:
+def get_holding_time_thresholds(time: int, distance: int) -> int:
     thresholds = 0
     for t in range(0, time + 1):
         score = calculate_score(time, t)
@@ -56,7 +57,7 @@ def get_holding_time_thresholds(time:int, distance: int) -> int:
         score = calculate_score(time, i)
         # print(f"{i=}, {t=}, {time=}, {score=}")
         if score > distance:
-            thresholds += - i + 1
+            thresholds += -i + 1
             # print(f"{thresholds=}")
             break
     return thresholds
@@ -66,6 +67,7 @@ def answer_part2(data: list[str]) -> int:
     time, distance = parse_input_w_kerning(data)
     winning_scores = get_holding_time_thresholds(time, distance)
     return winning_scores
+
 
 if __name__ == "__main__":
     part_one = answer_part1(data)
