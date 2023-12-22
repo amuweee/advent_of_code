@@ -1,4 +1,5 @@
 import itertools
+import math
 
 with open("data/08.txt") as f:
     data = f.readlines()
@@ -19,7 +20,7 @@ class Node:
         self.left_suffix: str = strings[-2][1:4][-1]
 
     def __repr__(self) -> str:
-        return f"loc:{self.location} l:{self.left} r:{self.right} ls:{self.left_suffix} lr:{self.right_suffix}"
+        return f"loc:{self.location} l:{self.left} r:{self.right}"
 
     def find_next(self, direction: str) -> str:
         if direction == "L":
@@ -60,7 +61,6 @@ def solve_part_1(instructions: str, all_network: list[str]) -> int:
         if current_node == "ZZZ":
             break
         else:
-            # print(f"{current_node=}, {ins=}")
             step_counter += 1
             current_node = network[current_node].find_next(ins)
 
@@ -69,25 +69,24 @@ def solve_part_1(instructions: str, all_network: list[str]) -> int:
 
 
 def solve_part_2(instructions: str, all_network: list[str]) -> int:
-    step_counter = 0
-    endless_ins = itertools.cycle(instructions)
+    all_steps = []
     network = create_network_dict(all_network)
 
     current_nodes = [node for node in network.values() if node.location_suffix == "A"]
+    # just do LCM..
+    for node in current_nodes:
+        step_counter = 0
+        for ins in itertools.cycle(instructions):
+            if node.location_suffix == "Z":
+                all_steps.append(step_counter)
+                break
+            else:
+                step_counter += 1
+                node = network[network[node.location].find_next(ins)]
 
-    for ins in endless_ins:
-        if len([node for node in current_nodes if node.location_suffix != "Z"]) == 0:
-            break
-        else:
-            step_counter += 1
-            current_nodes = [
-                network[network[node.location].find_next(ins)] for node in current_nodes
-            ]
-
-            print(f"{[n.location for n in current_nodes]=}, {step_counter=}")
-
-    print(f"Part 2: {step_counter}")
-    return step_counter
+    lcm = math.lcm(*all_steps)
+    print(f"Part 2: {lcm}")
+    return lcm
 
 
 if __name__ == "__main__":
